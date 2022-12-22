@@ -6,7 +6,7 @@
 #    By: aizsak <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/10 12:41:39 by aizsak            #+#    #+#              #
-#    Updated: 2022/12/19 14:05:00 by aizsak           ###   ########.fr        #
+#    Updated: 2022/12/22 15:34:46 by aizsak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,19 @@ SRC_CLIENT =	src/client.c
 
 SRC_SERVER =	src/server.c
 
+BONUS_CLIENT = bonus/client_bonus.c
+
+BONUS_SERVER =	bonus/server_bonus.c
+
 CC = gcc
 
 OBJ_SERVER = $(SRC_SERVER:.c=.o)
 
 OBJ_CLIENT = $(SRC_CLIENT:.c=.o)
+
+OBJ_CLIENT_BONUS = $(BONUS_CLIENT:.c=.o)
+
+OBJ_SERVER_BONUS = $(BONUS_SERVER:.c=.o)
 
 LIB_PATH = libft/
 
@@ -42,9 +50,14 @@ $(CLIENT) :	$(OBJ_CLIENT)
 			$(MAKE) -C $(LIB_PATH)
 			$(CC) $(CFLAGS) $(OBJ_CLIENT) $(LIB) -o $(CLIENT)
 
+bonus :	$(OBJ_CLIENT_BONUS) $(OBJ_SERVER_BONUS)
+			$(MAKE) -C $(LIB_PATH)
+			$(CC) $(CFLAGS) $(OBJ_CLIENT_BONUS) $(LIB) -o $(CLIENT)
+			$(CC) $(CFLAGS) $(OBJ_SERVER_BONUS) $(LIB) -o $(SERVER)
+
 clean :
 	$(MAKE) clean -C $(LIB_PATH)
-	rm -f $(OBJ_CLIENT) $(OBJ_SERVER)
+	rm -f $(OBJ_CLIENT) $(OBJ_SERVER) $(OBJ_CLIENT_BONUS) $(OBJ_SERVER_BONUS)
 
 fclean : clean
 	$(MAKE) fclean -C $(LIB_PATH)
