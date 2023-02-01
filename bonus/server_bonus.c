@@ -6,7 +6,7 @@
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:27:43 by aizsak            #+#    #+#             */
-/*   Updated: 2023/01/31 09:10:03 by aizsak           ###   ########.fr       */
+/*   Updated: 2023/02/01 13:42:15 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	signal_handler(int signum, siginfo_t *siginfo, void *ucontext)
 		else if (c == '\0')
 		{
 			write (1, "\n", 1);
-			//kill(siginfo->si_pid, SIGUSR2);
+			kill(siginfo->si_pid, SIGUSR2);
 		}
 		i = 0;
 		c = 0;

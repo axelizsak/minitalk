@@ -6,7 +6,7 @@
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:27:03 by aizsak            #+#    #+#             */
-/*   Updated: 2023/01/31 09:09:32 by aizsak           ###   ########.fr       */
+/*   Updated: 2023/02/01 14:09:02 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	str_to_binary(char *s, pid_t pid, t_bin bin)
 static void	signal_checker(int signum, siginfo_t *siginfo, void *ucontext)
 {
 	(void)ucontext;
-	if (signum != SIGUSR1)
+	if (signum != SIGUSR1 && signum != SIGUSR2)
 		exit(-1);
 	if (siginfo->si_code != SI_USER)
 		exit(-1);
@@ -57,7 +57,7 @@ static void	signal_handler(int signum, siginfo_t *siginfo, void *ucontext)
 	if (signum == SIGUSR1)
 		g_global = 1;
 	else if (signum == SIGUSR2)
-		ft_printf("Charli Tango end of transmison.\n");
+		ft_printf("Chrali Tango end of communication.\n");
 }
 
 int	main(int argc, char **argv)
@@ -77,7 +77,7 @@ int	main(int argc, char **argv)
 	signal_action.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGUSR1, &signal_action, NULL) < 0)
 		exit(-1);
-	if (sigaction(SIGUSR1, &signal_action, NULL) < 0)
+	if (sigaction(SIGUSR2, &signal_action, NULL) < 0)
 		exit(-1);
 	str_to_binary(argv[2], pid, bin);
 	exit(0);
